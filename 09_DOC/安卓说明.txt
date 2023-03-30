@@ -1,0 +1,15 @@
+1. 修改logo和名字
+    打开文件 res->values->strings.xml  修改app_name 的值
+    替换res->drawable和mipmap的图片
+
+2. 修改包名
+    Alt+Shift+R修改包名
+    build.gradle文件修改applicationId
+3.修改url地址
+    java/com../url/config/
+
+5.打包
+    菜单->build->buildAPK
+
+
+

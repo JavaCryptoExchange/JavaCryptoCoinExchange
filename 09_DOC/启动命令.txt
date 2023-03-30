@@ -1,0 +1,149 @@
+启动zookeeper
+cd /home/tools/zookeeper-3.4.14/bin/
+./zkServer.sh  start      启动
+./zkServer.sh   status    查看状态
+./zkServer.sh    stop     停止/关闭
+
+启动kafka
+cd /home/tools/kafka_2.11-2.2.1/bin
+./kafka-server-start.sh -daemon ../config/server.properties
+
+启动ETH节点
+
+cd /www/data/eth/geth-linux-amd64-1.9.15-0f77f34b
+
+echo "export PATH=$PATH:/www/eth/geth-linux-amd64-1.9.15-0f77f34b" >> /etc/profile
+
+nohup geth --datadir /www/eth/data --cache 1024 --rpc --rpcapi web3,eth,net,db,personal,admin --rpccorsdomain "*" --rpcport 8545 --rpcaddr 127.0.0.1 --syncmode light --allow-insecure-unlock &
+
+
+tail -f nohup.out
+进入geth控制台
+geth attach http://127.0.0.1:8545
+创建账户
+personal.newAccount(123456789)
+
+
+查看当前用户
+eth.accounts
+给用户解锁,这里是给第一个账户解锁
+user1=eth.accounts[0]
+personal.unlockAccount(user1)
+
+
+
+
+
+./omnicore-cli -rpcconnect=127.0.0.1 -rpcuser=bizzan -rpcpassword=123456789 -rpcport=8332 getblockchaininfo
+./omnicore-cli -rpcconnect=127.0.0.1 -rpcuser=bizzan -rpcpassword=123456789 -rpcport=8332 getwalletinfo
+./omnicore-cli -rpcconnect=127.0.0.1 -rpcuser=bizzan -rpcpassword=123456789 -rpcport=8332 listreceivedbyaddress 1 true
+./omnicore-cli -rpcconnect=127.0.0.1 -rpcuser=bizzan -rpcpassword=123456789 -rpcport=8332 getnewaddress "123456789"
+
+nohup ./omnicored -conf=/www/btc/bitcoin.conf -reindex >> /www/btc/output.log 2>&1 &
+
+tail -f output.log
+
+
+
+
+./bitcoin-cli --datadir=/www/btc/datatest/ --testnet=1 --rpcuser=rabbit --rpcpassword=123456 listwallets
+_______________________________________________________________________________________________________________________________________________________________________________________________________
+cd /home/java/all
+微服务等
+nohup java -jar  -Xms128m -Xmx512m  cloud.jar  >/dev/null 2>&1 &
+
+tail -f cloud.txt
+
+nohup java -jar exchange.jar  >/dev/null 2>&1 &
+
+tail -f exchange.txt
+
+nohup java -jar  market.jar  >/dev/null 2>&1 &
+
+tail -f market.txt
+
+nohup java -jar -Xms512m -Xmx512m  exchange-api.jar  >/dev/null 2>&1 &
+
+tail -f exchange-api.txt 
+
+nohup java -jar contract-swap-api.jar >/dev/null 2>&1 &
+
+nohup java -jar wallet.jar  >/dev/null 2>&1 &
+
+nohup java -jar  -Xms512m -Xmx512m  wallet_udun.jar  >/dev/null 2>&1 &
+
+tail -f wallet.txt
+
+tail -f wallet_udun.txt
+
+nohup java -jar  -Xms512m -Xmx512m   ucenter-api.jar  >/dev/null 2>&1 &
+
+tail -f ucenter-api.txt
+
+nohup  java -jar agent-api.jar  >/dev/null 2>&1 &
+
+tail -f agent-api.txt
+
+
+nohup java -jar -Xms512m -Xmx512m admin-api.jar  >/dev/null 2>&1 &
+
+tail -f admin-api.txt
+
+nohup java -jar   -Xms512m -Xmx512m  otc-api.jar  >/dev/null 2>&1 &
+
+tail -f otc-api.txt
+
+nohup java -jar   -Xms512m -Xmx512m  chat.jar  >/dev/null 2>&1 &
+
+tail -f  chat.txt  &
+
+nohup java -jar -Xms512m -Xmx512m   er_market.jar  >/dev/null 2>&1 &
+
+tail -f er_market.txt
+
+nohup java -jar er_robot_normal.jar  >/dev/null 2>&1 &
+nohup java -jar er_robot_custom.jar   >/dev/null 2>&1 &
+nohup java -jar er_robot_custom.jar &> custom.txt &
+
+tail -f  custom.txt
+
+tail -f er_robot_normal.txt
+_______________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+nohup java -jar  bitcoin.jar &>  bitcoin.txt  &
+
+
+
+tail -f  bitcoin.txt
+
+
+nohup java -jar   eth.jar &>  eth.txt  &
+
+tail -f  eth.txt
+
+nohup java -jar  usdt.jar &>   usdt.txt  &
+
+tail -f  usdt.txt
+
+nohup java -jar  eusdt.jar &>   eusdt.txt  &
+
+tail -f  eusdt.txt
+
+nohup java -jar  -Xms128m -Xmx512m   sun.jar &>   sun.txt  &
+
+tail -f  sun.txt
+
+
+activity:activity:detail
+
+activity:activity:orderlist
+
+
+
+tar zxf geth-linux-amd64-1.9.15-0f77f34b.tar.gz
+rm -f geth-linux-amd64-1.9.15-0f77f34b.tar.gz
+rm -rf /opt/geth
+ln -fs /opt/geth-linux-amd64-1.9.14-6d74d1e5 /opt/geth
+ln -fs /opt/geth-linux-amd64-1.9.14-6d74d1e5/geth  /usr/local/bin/
+
